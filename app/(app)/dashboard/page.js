@@ -143,7 +143,7 @@ const dashboard = () => {
     );
   } else {
     return (
-      <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-8 bg-white shadow-lg rounded-2xl w-full max-w-6xl">
+      <div className="my-8 mx-2 md:mx-8 lg:mx-auto p-8 bg-white shadow-lg rounded-2xl w-[96vw] max-w-6xl">
         <h1 className="text-4xl font-extrabold mb-6 text-gray-900">
           User Dashboard
         </h1>

@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 
 export default function RootLayout({ children }) {
   return (
-    <div>
+    <div className="w-screen">
       <Navbar />
       {children}
     </div>
