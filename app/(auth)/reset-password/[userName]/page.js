@@ -45,7 +45,7 @@ const resetPassword = () => {
         userName,
         password: data.password,
       });
-      console.log(response);
+
       if (response.data.success) {
         toast({
           title: "Success",

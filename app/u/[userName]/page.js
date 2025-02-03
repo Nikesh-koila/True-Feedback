@@ -7,7 +7,7 @@ import { msgSchema } from "@/Schemas/msgSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -27,18 +27,30 @@ import Navbar from "@/components/Navbar";
 const MessagePage = () => {
   const { userName } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const MessageString = useRef([]);
+
   const { toast } = useToast();
 
   const initialMessageString =
     "What's your favorite movie?|| Do you have any pets?|| What's your dream job?";
 
-  const { complete, completion, error, isLoading: isSuggestLoading } =
-    useCompletion({
-      api: "/api/suggest-messages",
-      initialCompletion: initialMessageString,
-    });
+  const parseMessages = (messages) => {
+    MessageString.current = messages.split("||");
 
-  const parseMessages = (messages) => messages.split("||");
+    return MessageString.current;
+  };
+  const {
+    complete,
+    completion,
+    error,
+    isLoading: isSuggestLoading,
+  } = useCompletion({
+    api: "/api/suggest-messages",
+    initialCompletion: initialMessageString,
+    body: {
+      prompt: MessageString.current.toString(),
+    },
+  });
 
   const fetchSuggestedMessages = async () => {
     try {
@@ -108,7 +120,11 @@ const MessagePage = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isSubmitting} className="w-full md:w-auto">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full md:w-auto"
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin mr-2" /> Please wait
@@ -134,7 +150,9 @@ const MessagePage = () => {
             )}
             Suggest Messages
           </Button>
-          <p className="text-gray-600">Click on any message below to select it.</p>
+          <p className="text-gray-600">
+            Click on any message below to select it.
+          </p>
         </div>
 
         <Card className="mt-6">

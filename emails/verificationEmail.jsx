@@ -1,6 +1,5 @@
 // VerificationEmail component
 const VerificationEmail = (userName, otp) => {
-  console.log(userName, otp);
   return `<!DOCTYPE html>
     <html lang="en" dir="ltr">
     <head>
