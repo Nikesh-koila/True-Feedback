@@ -9,8 +9,6 @@ const Navbar = () => {
   const { data: session } = useSession();
   const user = session?.user;
 
-  const url = window.location.pathname;
-
   return (
     <nav className="p-4 shadow-md bg-gray-900 text-white">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -38,7 +36,7 @@ const Navbar = () => {
               className="w-full md:w-auto bg-slate-100 text-black"
               variant="outline"
             >
-              {url.startsWith("/u") ? "Get your message board" : "Login"}
+             Login
             </Button>
           </Link>
         )}
